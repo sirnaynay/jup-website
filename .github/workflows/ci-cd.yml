@@ -9,34 +9,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2.3.4
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Pre-deployment Backup
-        uses: appleboy/ssh-action@v0.1.2
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-            sudo cp -a /var/www/jup.eco /var/www/backups/jup.eco_$TIMESTAMP
+    - name: Copy files to server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: "."
+        target: "/var/www/jup.eco"
 
-      - name: Copy files to server (Optimized with rsync)
-        uses: burnett01/rsync-deployments@4.1
-        with:
-          switches: -avzr --delete
-          path: ./
-          remote_path: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/var/www/jup.eco
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Restart Apache
-        uses: appleboy/ssh-action@v0.1.2
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: sudo systemctl restart apache2
-
-      - name: Send Deployment Notification (Example)
-        run: echo "Deployment successful" # This can be replaced with a step to send a real notification
+    - name: Restart Apache
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: sudo systemctl restart apache2
