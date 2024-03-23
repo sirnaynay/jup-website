@@ -1,4 +1,4 @@
-name: Deploy to Apache Server
+name: Deploy to Apache Server with Rsync
 
 on:
   push:
@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    - name: Copy files to server
-      uses: appleboy/scp-action@master
+    - name: Rsync files to server
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "."
-        target: "/var/www/jup.eco"
-
-    - name: Restart Apache
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: sudo systemctl restart apache2
+        script: |
+          RSYNC_EXIT_STATUS=0
+          rsync -avz --delete --exclude=.git --exclude=.github ./ ${SERVER_USER}@${SERVER_IP}:/var/www/jup.eco/ || RSYNC_EXIT_STATUS=$?
+          if [ $RSYNC_EXIT_STATUS -eq 0 ]; then
+            echo "Rsync completed successfully. Restarting Apache..."
+            sudo systemctl restart apache2
+          else
+            echo "Rsync failed with exit status $RSYNC_EXIT_STATUS"
+            exit $RSYNC_EXIT_STATUS
+          fi
