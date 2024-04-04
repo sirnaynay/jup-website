@@ -10,6 +10,23 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			h2.underline {
+				position: relative; /* Needed for positioning the pseudo-element */
+				padding-bottom: 10px; /* Space between the text and anything below */
+				display: inline-block; /* Ensures the underline only spans the text */
+			}
+			h2.underline::after {
+				content: ''; /* Required for a pseudo-element */
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0; /* Adjusts distance from the text to the underline */
+				height: 1px; /* Thickness of the underline */
+				background: #000; /* Color of the underline */
+				margin-bottom: 8px; /* Space between the underline and the bottom padding */
+			}
+		</style>
 	</head>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T9BETSQBR3"></script>
@@ -44,39 +61,40 @@
 							<header>
 								<h2>Welcome to the J.U.P. Ecosystem</h2>
 							</header>
-							<p>The Official JUP Communications aggregator and DAO knowledge resource.</p>
+							
 							<section id="promo"><p>Discover Jupiter's Work Groups, summarizations of important ecosystem calls, and more!</p></section>
 							
 						</section>
 
 				</div>
+
 				
-				<div id="promo-wrapper">
-					<section id="promo">
-						<h2>Catdet Content Corner</h2>
-						<a href="" class=""></a>
-					</section>
-				</div>
 
 			<!-- Features 2 -->
 				<div class="wrapper">
-					
+						<div align="center"><h2 class="underline" style="font-size: 48px;">Catdet Content Corner</h2></div><br><br>
+
 					<section class="container">
 						<div class="row features">
-							<section class="col-6 col-12-narrower feature">
+							<section class="col-4 col-12-narrower feature">
 								<h2>Planetary Calls</h2>
 								<!-- Content -->
 								<article id="content">
-										<li><a href="planetary-call-7.html">Planetary Call #7</a></li>
-										<li><a href="planetary-call-6.html">Planetary Call #6</a></li>
+										<li><a href="">Planetary Call #7</a></li>
+										<li><a href="">Planetary Call #6</a></li>
 										<li><a href="planetary-call-5.html">Planetary Call #5</a></li>
-										<li><a href="planetary-call-4.html">Planetary Call #4</a></li>
-										<li><a href="planetary-call-3.html">Planetary Call #3</a></li>
-										<li><a href="planetary-call-2.html">Planetary Call #2</a></li>
-										<li><a href="planetary-call-1.html">Planetary Call #1</a></li>
+										<li><a href="">Planetary Call #4</a></li>
+										<li><a href="">Planetary Call #3</a></li>
 								</article>
 							</section>
-							<section class="col-6 col-12-narrower feature">
+							<section class="col-4 col-12-narrower feature">
+								<h2>JUP Townhalls</h2>
+								<!-- Content -->
+								<article id="content">
+										<li><a href="jupdao-townhall-1.html">JUP Townhall #1</a></li>
+								</article>
+							</section>
+							<section class="col-4 col-12-narrower feature">
 								<h2>LFG Votes</h2>
 								<!-- Content -->
 								<article id="content">
