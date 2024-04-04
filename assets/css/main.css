@@ -72,6 +72,30 @@ input, select, textarea {
 	appearance: none;
 }
 
+.construction-banner {
+    background-color: #2e2e2e; /* Change the background color as needed */
+    color: #fffd6a; /* Change the text color as needed */
+    text-align: center;
+    padding: 15px 0;
+    font-family: Inter, sans-serif;
+    border-top: 5px solid #2e2e2e; /* Top border for a bit of accent */
+    border-bottom: 5px solid #2e2e2e; /* Bottom border for a bit of accent */
+}
+
+.construction-content {
+    max-width: 600px; /* Adjust the width as needed */
+    margin: 0 auto;
+}
+
+.construction-content h1 {
+    font-size: 30px; /* Adjust the font size as needed */
+    margin-bottom: 20px;
+}
+
+.construction-content p {
+    font-size: 20px; /* Adjust the font size as needed */
+}
+
 /* Basic */
 
 	@-ms-viewport {
