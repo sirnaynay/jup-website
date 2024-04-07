@@ -3090,5 +3090,30 @@ input, select, textarea {
 			#footer header.major {
 				margin-bottom: 1em;
 			}
+			
 
 	}
+	.conic-headers-blue{
+  		font-weight: 600;
+ 		background-image: conic-gradient(#553c9a, #ee4b2b, #00c2cb, #553c9a);
+  		color: transparent;
+  		background-clip: text;
+  		-webkit-background-clip: text;
+	}
+	.conic-headers-orange{
+		text-decoration-line: underline;
+		text-decoration-color: #2e2e2e;
+		font-weight: 600;
+	   	background-image: radial-gradient(circle, #553c9a, #ee4b2b);
+		color: transparent;
+		background-clip: text;
+		-webkit-background-clip: text;
+
+  }
+  .keep-inline{
+	display: inline-block;
+  }
+  .colored-link{
+	color: blue;
+	outline: none;
+  }
