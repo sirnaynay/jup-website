@@ -31,14 +31,6 @@
 								</nav>
 					</div>
 				</div>
-			<script>
-				document.querySelectorAll('.faq-question').forEach(question => {
-					question.addEventListener('click', function() {
-						var answer = this.nextElementSibling;
-						answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-					});
-				});
-			</script>
 				<!-- Google tag (gtag.js) -->
 			<script async src="https://www.googletagmanager.com/gtag/js?id=G-T9BETSQBR3"></script>
 			<script>
@@ -168,6 +160,14 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				document.querySelectorAll('.faq-question').forEach(question => {
+					question.addEventListener('click', function() {
+						var answer = this.nextElementSibling;
+						answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+					});
+				});
+			</script>
 
 
 	</body>
