@@ -299,9 +299,21 @@ input, select, textarea {
 			.container {
 				width: 100%;
 			}
-
 		}
+	.faq-question {
+		cursor: pointer;
+		padding: 10px;
+		background-color: #f2f2f2;
+		margin: 5px;
+		border-radius: 5px;
+	}
 
+	.faq-answer {
+		display: none;
+		padding: 10px;
+		border: 1px solid #ddd;
+		border-top: none;
+	}
 /* Row */
 
 	.row {
