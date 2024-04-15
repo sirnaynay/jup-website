@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<!--
+HOW TO USE
+
+Update content in MAIN -- Call number, call summary, call content and image if provided
+-->
+<html>
+	<head>
+		<title>J.U.P.</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+@keyframes popUp {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Container for the card layout */
+.card-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Individual card */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    flex: 0 0 calc(33.333% - 30px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  animation: popUp 0.5s ease forwards;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card-container .card {
+  animation: popUp 0.5s ease forwards;
+}
+
+/* Card header */
+.card-header {
+    padding: 16px;
+    background-color: #007bff; /* Change this color as needed */
+    color: white; /* Adjust text color as needed */
+    font-size: 1.25em;
+    font-weight: bold;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* Card body */
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+    max-height: 500px; /* Set a maximum height - adjust as needed */
+    overflow-y: auto;
+}
+
+/* List inside card */
+.card-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* List items */
+.card-list li {
+    border-top: 1px solid #eaeaea;
+    padding: 10px 0;
+    position: relative;
+}
+
+.card-list li:not(:last-child) {
+    border-bottom: 1px solid #eaeaea; /* Adds a border to all items except the last one */
+}
+
+/* First list item without top border */
+.card-list li:first-child {
+    border-top: none;
+}
+
+/* Links */
+.card-list li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 5px 0; /* Adjust padding as needed */
+    border-bottom: none; /* Removes the dashed underline */
+}
+
+.card-list li {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 1s ease;
+}
+
+.card-list li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0; /* Choose a light background color */
+    transition: left 1s ease;
+    z-index: -1;
+}
+
+/* If the border is on the li element instead of the a element */
+.card-list li {
+    border-top: none; /* Removes the top border */
+    /* Add other styles for li here */
+}
+
+.card-list li:hover::after {
+    left: 100%;
+}
+
+.card-list li:hover {
+    background-color: #e0e0e0; /* Choose a color for the hover state */
+}
+
+/* Search Input */
+#searchInput {
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    font-size: 1em;
+    width: 80%; /* Adjust as per your layout */
+    display: block;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+/* Search Results Container */
+.search-results {
+    display: none; /* Hide by default */
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute; /* Positioning it absolutely can help overlap content */
+    width: 80%; /* Match the width of the search input */
+    left: 10%; /* Adjust accordingly */
+    box-sizing: border-box;
+}
+
+/* Individual Result Item */
+.result-item {
+    padding: 10px 5px;
+    margin: 5px 0;
+    border-bottom: 1px solid #eee; /* Light border for each item */
+    transition: background-color 0.3s; /* Smooth transition for hover state */
+}
+
+.result-item:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+/* Hover State for Result Item */
+.result-item:hover {
+    background-color: #f9f9f9; /* Slightly different background on hover */
+}
+
+/* Link within Result Item */
+.result-item a {
+    color: #007bff; /* Adjust the color to match your theme */
+    text-decoration: none; /* No underline by default */
+}
+
+.result-item a:hover {
+    text-decoration: underline; /* Underline on hover for better UX */
+}
+
+/* Feedback Message */
+.search-feedback {
+    color: #777; /* Neutral color for feedback message */
+    text-align: center;
+    font-style: italic; /* A touch of style for feedback */
+}
+
+@media (max-width: 992px) {
+  .card {
+    flex: 0 0 calc(50% - 30px);
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 calc(100% - 30px);
+  }
+}
+    </style>
+		
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header" class="container">
+
+						<!-- Logo -->
+							<h1 id="logo"><a href="index.html">Planetary Call</a></h1>
+								<!-- Nav -->
+								<nav id="nav">
+									<ul>
+										<li><a href="index.html">Home</a></li>
+										<li><a href="workgroups.html">Work Groups</a></li>
+										<li class="break"><a href="under-construction.html">Swag Shop</a></li>
+										<li><a href="under-construction.html">Blog</a></li>
+									</ul>
+								</nav>
+					</div>
+				</div>
+					<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T9BETSQBR3"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-T9BETSQBR3');
+	</script>
+
+			<!-- Main -->
+			<div class="wrapper">
+				<div class="container" id="main">
+					<h2 style="text-align: center;">Full Content Repository</h2><br>
+					<input type="text" id="searchInput" placeholder="Search..." onkeyup="debouncedFilterLinks()">
+					<div id="searchResults" class="search-results"></div>
+				</div>
+					
+			
+					<div class="card-container">
+						<!-- Planetary Calls Card -->
+						<div class="card">
+							<div class="card-header">
+								Planetary Calls
+							</div>
+							<div class="card-body">
+								<ul class="card-list">
+									<li><a href="#">Planetary Call #8 - Coming Soon!</a></li>
+									<li><a href="#">Planetary Call #7 - Coming Soon!</a></li>
+									<li><a href="planetary-call-6.html">Planetary Call #6</a></li>
+									<li><a href="planetary-call-5.html">Planetary Call #5</a></li>
+								</ul>
+							</div>
+						</div>
+			
+						<!-- JUP Townhalls Card -->
+						<div class="card">
+							<div class="card-header">
+								JUP Townhalls
+							</div>
+							<div class="card-body">
+								<ul class="card-list">
+									<li><a href="townhall-summary-1.html">JUP Townhall #1</a></li>
+									<li><a href="townhall-summary-2.html">JUP Townhall #2</a></li>
+								</ul>
+							</div>
+						</div>
+			
+						<!-- LFG Votes Card -->
+						<div class="card">
+							<div class="card-header">
+								LFG Votes
+							</div>
+							<div class="card-body">
+								<ul class="card-list">
+									<li><a href="lfg-epoch2.html">LFG Epoch #2 - New AMA's</a></li>
+									<li><a href="lfg-wg-vote1.html">Work Group Vote - CWG Budget Proposal</a></li>
+									<li><a href="lfg-epoch1.html">LFG Epoch #1 - All New AMA's</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			  
+
+						<!-- Footer -->
+						<div id="footer-wrapper">
+							<div id="footer" class="container">
+								<header class="major">
+						<h2>Our Social Media Links</h2>
+						<p>Connect with us in the Discord or Twitter for all site related concerns. </p>
+					</header>
+								<div class="row">
+									<!-- Social Icons Section -->
+									<div class="col-12" style="text-align: center;">
+										<ul class="icons" style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center;">
+											<li style="margin: 0 15px; display: inline-block;"><a href="https://twitter.com/Jup_Eco" class="icon brands fa-twitter"> Twitter</a></li>
+											<li style="margin: 0 15px; display: inline-block;"><a href="https://github.com/sirnaynay/jup-website" class="icon brands fa-github"> GitHub</a></li>
+											<li style="margin: 0 15px; display: inline-block;"><a href="https://discord.gg/jup" class="icon brands fa-discord"> Discord</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div id="copyright" class="container">
+								<ul class="menu">
+									<li>&copy; JUP Eco-System. All rights reserved.</li>
+								</ul>
+							</div>
+						</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+<script>
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+				
+function filterLinks() {
+    var input = document.getElementById('searchInput');
+    var filter = input.value.toUpperCase();
+    var cards = document.getElementsByClassName('card');
+    var resultsContainer = document.getElementById('searchResults');
+
+    // Clear previous results and hide the container if the search is empty
+    resultsContainer.innerHTML = '';
+    resultsContainer.style.display = input.value ? 'block' : 'none';
+
+    if (filter) {
+        Array.from(cards).forEach(function(card) {
+            var links = card.getElementsByTagName('a');
+
+            Array.from(links).forEach(function(link) {
+                var txtValue = link.textContent || link.innerText;
+                if (txtValue.toUpperCase().includes(filter)) {
+                    var resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+                    resultItem.appendChild(link.cloneNode(true)); // Clone the link into the result item
+                    resultsContainer.appendChild(resultItem);
+                }
+            });
+        });
+
+        // Show feedback if no results are found
+        if (resultsContainer.innerHTML === '') {
+            resultsContainer.innerHTML = '<div class="search-feedback">No matching content found.</div>';
+        }
+    }
+}
+
+var debouncedFilterLinks = debounce(filterLinks, 250);
+</script>
+	</body>
+</html>
