@@ -141,39 +141,52 @@ Update content in MAIN -- Call number, call summary, call content and image if p
 
 /* Search Input */
 #searchInput {
-    margin: 0 auto 20px auto;
+    margin: 0 auto;
     padding: 10px;
     font-size: 1em;
-    width: 80%; /* Adjust as per your layout */
+    width: 80%;
     display: block;
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Remove or reduce this margin if it's creating too much space */
+#searchInput + * {
+    margin-top: 0px; /* Adjust this value as needed */
 }
 
 /* Search Results Container */
 .search-results {
-    display: none; /* Hide by default */
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    max-height: 300px;
+    display: none;
+    position: absolute;
+    width: calc(80% - 20px);
+    left: 10%;
+    top: 63%; /* You can try changing this to a smaller value, e.g., 90% */
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
     overflow-y: auto;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: absolute; /* Positioning it absolutely can help overlap content */
-    width: 80%; /* Match the width of the search input */
-    left: 10%; /* Adjust accordingly */
+    max-height: 400px;
+    border: 1px solid #ddd;
+    padding: 10px;
     box-sizing: border-box;
+}
+
+/* Make sure #main is the relative container for the search results */
+#main {
+    position: relative; /* Existing code ensures #main is the position reference for search results */
 }
 
 /* Individual Result Item */
 .result-item {
     padding: 10px 5px;
     margin: 5px 0;
-    border-bottom: 1px solid #eee; /* Light border for each item */
+    border-bottom: 1px solid #eee;
     transition: background-color 0.3s; /* Smooth transition for hover state */
 }
 
