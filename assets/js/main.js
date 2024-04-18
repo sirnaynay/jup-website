@@ -65,3 +65,57 @@
 
 		
 })(jQuery);
+
+$(document).ready(function(){
+	$('.slick-carousel').slick({
+		dots: true,
+		infinite: true,
+		speed: 300,
+		arrows: false,
+		centerMode: true,
+		centerPadding: '60px',
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		responsive: [
+			{
+			breakpoint: 1024,
+			settings: {
+			dots: true,
+			infinite: true,
+			speed: 300,
+			  arrows: false,
+			  centerMode: true,
+			  centerPadding: '40px',
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			}
+		  },
+		  {
+			breakpoint: 768,
+			settings: {
+			dots: true,
+			infinite: true,
+			speed: 300,
+			  arrows: false,
+			  centerMode: true,
+			  centerPadding: '40px',
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			}
+		  },
+		  {
+			breakpoint: 480,
+			settings: {
+			dots: true,
+			infinite: true,
+			speed: 300,
+			  arrows: false,
+			  centerMode: true,
+			  centerPadding: '40px',
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			}
+		  }
+		]
+	  });	  
+});
