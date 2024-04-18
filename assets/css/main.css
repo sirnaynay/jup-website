@@ -3144,8 +3144,8 @@ input, select, textarea {
   
   /* Active slide styling */
   .slick-center {
-	color: #fff; /* Active slide text color */
-	background: #3498db; /* Active slide background color */
+	color: #ffffff; /* Active slide text color */
+	background: #ffffff; /* Active slide background color */
 	transform: scale(1.05); /* Make the active slide slightly larger */
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for active slide */
   }
@@ -3186,7 +3186,7 @@ input, select, textarea {
 
   /* General slide styles, applying to both <a> tags and div elements */
 .slick-slide, .slick-slide a {
-	color: #ffffff; /* Slide text color */
+	color: #ffffffe3; /* Slide text color */
 	font-size: 36px; /* Slide text size */
 	line-height: 100px; /* Center the text vertically */
 	text-align: center; /* Center the text horizontally */
