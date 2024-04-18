@@ -10,6 +10,142 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+
+  /* Search Input */
+			#searchInput {
+				margin: 0 auto;
+				padding: 10px;
+				font-size: 1em;
+				width: 80%;
+				display: block;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid #ddd;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Search Results Container */
+			.search-results {
+				display: none;
+				position: absolute;
+				width: calc(80% - 20px);
+				left: 10%;
+				top: 13%;
+				z-index: 10;
+				background-color: white;
+				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+				border-radius: 4px;
+				overflow-y: auto;
+				max-height: 400px;
+				border: 1px solid #ddd;
+				padding: 10px;
+				box-sizing: border-box;
+			}
+		  
+			/* Individual Result Item */
+			.result-item {
+			  padding: 10px 5px;
+			  margin: 5px 0;
+			  border-bottom: 1px solid #eee;
+			  transition: background-color 0.3s;
+			}
+		  
+			.result-item:last-child {
+			  border-bottom: none;
+			}
+		  
+			.result-item:hover {
+			  background-color: #f9f9f9;
+			}
+		  
+			.result-item a {
+			  color: #007bff;
+			  text-decoration: none;
+			}
+		  
+			.result-item a:hover {
+			  text-decoration: underline;
+			}
+		  
+			/* Feedback Message */
+			.search-feedback {
+			  color: #777;
+			  text-align: center;
+			  font-style: italic;
+			}
+		  
+			/* FAQ Items */
+			.faq-question h3 {
+			  cursor: pointer;
+			  background-color: #f7f7f7; /* Light gray background */
+			  margin: 0;
+			  padding: 12px 16px; /* Spacing inside the question */
+			  border-bottom: 1px solid #ddd; /* Light border for separation */
+			  user-select: none; /* Prevent text selection */
+			}
+		  
+			.faq-answer {
+			  display: none; /* Initially hide the answer */
+			  padding: 8px 16px; /* Spacing inside the answer */
+			  background-color: #fff; /* White background for the content */
+			  border-bottom: 1px solid #ddd; /* Light border for separation */
+			}
+			
+			@media (max-width: 1200px) {
+				#searchInput,
+				.search-results {
+				width: 90%; /* Adjust width to 90% */
+				left: 5%; /* Center the block with 5% left margin */
+				}
+
+				.search-results {
+				top: 210px; /* Adjust top based on the height of the input plus padding */
+				}
+			}
+
+			/* Responsive adjustments for medium screens */
+			@media (max-width: 992px) {
+				#searchInput,
+				.search-results {
+				width: 90%; /* Adjust width to 90% */
+				left: 5%; /* Center the block with 5% left margin */
+				}
+
+				.search-results {
+				top: 200px; /* Adjust top based on the height of the input plus padding */
+				}
+			}
+
+			/* Responsive adjustments for small screens */
+			@media (max-width: 768px) {
+				#searchInput,
+				.search-results {
+				width: 95%; /* Adjust width to 95% for smaller screens */
+				left: 2.5%; /* Center the block with 2.5% left margin */
+				}
+
+				.search-results {
+				top: 160px; /* Adjust top based on the height of the input plus padding */
+				}
+			}
+
+			/* Responsive adjustments for extra small screens */
+			@media (max-width: 480px) {
+				#searchInput,
+				.search-results {
+				width: 100%; /* Full width for extra small screens */
+				left: 0; /* Align to the left edge */
+				}
+
+				.search-results {
+				top: 150px; /* Adjust top based on the height of the input plus padding */
+				}
+			}
+		  </style>
+		  
 	</head>
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
@@ -44,13 +180,16 @@
 			<!-- Main -->
 			<div class="wrapper">
 				<div class="container" id="main">
+					<h2 style="text-align: center;">Search FAQs Now!</h2><br>
+					<input type="text" id="searchInput" placeholder="Search..." onkeyup="debouncedFilterLinks()">
+					<div id="searchResults" class="search-results"></div><br><br>
 					<div class="row gtr-150">
 						<div class="col-6 col-12-narrower">
 
 							<!-- Sidebar -->
                             <article id="content">
                                 <header>
-                                    <div class="faq"><h2>JUP FAQs</h2></div>
+                                    <div align="center" class="faq"><h2>JUP FAQs</h2></div>
                                 </header>
                                 <ul>
                                     <div class="faq-question"><h3>What is the Jupiter United Planet (J.U.P.) ?</h3></div>
@@ -78,7 +217,7 @@
 						<div class="col-6 col-12-narrower imp-narrower">
 
 							<!-- Content -->
-								<article id="content">
+								<article align="center" id="content">
 
 									<header>
 										<div class="faq"><h2>Active Staking Rewards (ASR) FAQs</h2></div>
@@ -157,15 +296,80 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script defer>
-				document.querySelectorAll('.faq-question').forEach(question => {
-					question.addEventListener('click', function() {
-						var answer = this.nextElementSibling;
-						answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-					});
-				});
-			</script>
+			<script>
+				// Debounce function to limit the rate at which a function can fire
+				function debounce(func, wait, immediate) {
+					var timeout;
+					return function() {
+						var context = this, args = arguments;
+						var later = function() {
+							timeout = null;
+							if (!immediate) func.apply(context, args);
+						};
+						var callNow = immediate && !timeout;
+						clearTimeout(timeout);
+						timeout = setTimeout(later, wait);
+						if (callNow) func.apply(context, args);
+					};
+				}
+			
+    // Function to toggle the FAQ answer display
+    function toggleFaq(questionElement) {
+        var answer = questionElement.nextElementSibling;
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    }
 
+    // Function to create and append search result items
+    function appendSearchResult(textContent, container) {
+        var resultItem = document.createElement('div');
+        resultItem.classList.add('result-item');
+        resultItem.textContent = textContent;
+        resultItem.addEventListener('click', function() {
+            // Find and open the corresponding FAQ answer
+            document.querySelectorAll('.faq-question').forEach(function(question) {
+                if (question.textContent.trim() === textContent.trim()) {
+                    toggleFaq(question);
+                    question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+        container.appendChild(resultItem);
+    }
+
+    // Function to filter FAQ items based on search input
+    function filterLinks() {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toUpperCase();
+        var faqs = document.querySelectorAll('.faq-question');
+        var resultsContainer = document.getElementById('searchResults');
+
+        // Clear previous results
+        resultsContainer.innerHTML = '';
+        resultsContainer.style.display = filter ? 'block' : 'none';
+
+        // Loop through FAQ questions and filter items
+        faqs.forEach(function(question) {
+            if (question.textContent.toUpperCase().includes(filter)) {
+                appendSearchResult(question.textContent, resultsContainer);
+            }
+        });
+
+        // Display message if no results found
+        if (resultsContainer.children.length === 0) {
+            resultsContainer.innerHTML = '<div class="search-feedback">No matching content found.</div>';
+        }
+    }
+    
+    var debouncedFilterLinks = debounce(filterLinks, 250);
+    document.getElementById('searchInput').addEventListener('input', debouncedFilterLinks);
+
+    // Event listener to open the FAQ when its question is clicked
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+            toggleFaq(this);
+        });
+    });
+</script>
 
 	</body>
 </html>
