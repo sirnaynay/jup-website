@@ -3129,3 +3129,118 @@ input, select, textarea {
 	color: blue;
 	outline: none;
   }
+
+/* Carousel slide basic styling */
+.slick-slide {
+	color: #333; /* Slide text color */
+	font-size: 20px; /* Slide text size */
+	line-height: 100px; /* Center the text vertically */
+	text-align: center; /* Center the text horizontally */
+	background: #f0f0f0; /* Slide background color */
+	margin: 0 10px; /* Spacing between slides */
+	transition: all 0.3s; /* Smooth transition for scaling */
+	cursor: pointer; /* Change cursor on hover */
+  }
+  
+  /* Active slide styling */
+  .slick-center {
+	color: #fff; /* Active slide text color */
+	background: #3498db; /* Active slide background color */
+	transform: scale(1.05); /* Make the active slide slightly larger */
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for active slide */
+  }
+  
+  /* Hover effect for all slides */
+  .slick-slide:hover {
+	background: #e0e0e0; /* Change background color on hover */
+	transform: scale(1.03); /* Scale up slides on hover */
+  }
+  
+  /* Ensure the hover effect doesn't interfere with the active slide */
+  .slick-center:hover {
+	background: #3498db; /* Keep the active slide color on hover */
+	transform: scale(1.05); /* Keep the active slide scaled up */
+  }
+  
+  /* Arrow styling */
+  .slick-prev,
+  .slick-next {
+	font-size: 20px; /* Arrow size */
+	color: #3498db; /* Arrow color */
+  }
+  
+  /* Arrow hover styling */
+  .slick-prev:hover,
+  .slick-next:hover {
+	color: #fff; /* Arrow color on hover */
+  }
+  
+  /* Customizing the dots */
+  .slick-dots li button:before {
+	color: #3498db; /* Dots color */
+  }
+  
+  .slick-dots li.slick-active button:before {
+	color: #fff; /* Active dot color */
+  }
+
+  /* General slide styles, applying to both <a> tags and div elements */
+.slick-slide, .slick-slide a {
+	color: #333; /* Slide text color */
+	font-size: 20px; /* Slide text size */
+	line-height: 100px; /* Center the text vertically */
+	text-align: center; /* Center the text horizontally */
+	background: #f0f0f0; /* Slide background color */
+	margin: 0 10px; /* Spacing between slides */
+	transition: all 0.3s; /* Smooth transition for scaling */
+	cursor: pointer; /* Change cursor on hover */
+	display: block; /* Ensure the <a> tag covers the entire slide */
+	text-decoration: none; /* Remove underline from <a> tag */
+	box-sizing: border-box; /* Box-sizing to include padding and borders in the element's total width and height */
+  }
+  
+  /* Hover effect for all slides */
+  .slick-slide:hover, .slick-slide a:hover {
+	background: #e0e0e0; /* Lighten the background color on hover */
+	transform: scale(1.03); /* Scale up slides on hover */
+  }
+  
+  /* Active slide styling */
+  .slick-center, .slick-center a {
+	color: #fff; /* Active slide text color */
+	background: #3498db; /* Active slide background color */
+	transform: scale(1.05); /* Make the active slide slightly larger */
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for active slide */
+  }
+  
+  /* Ensure that the active slide <a> tag inherits the parent styles */
+  .slick-center a {
+	color: inherit; /* Inherit text color from the active slide */
+	background: inherit; /* Inherit background from the active slide */
+  }
+  
+  /* Ensure the hover effect doesn't interfere with the active slide */
+  .slick-center:hover, .slick-center a:hover {
+	background: #3498db; /* Keep the active slide color on hover */
+	transform: scale(1.05); /* Keep the active slide scaled up */
+	box-shadow: inherit; /* Inherit shadow from the active slide */
+  }
+
+  .slick-carousel a div {
+	color: #333; /* Slide text color */
+	font-size: 20px; /* Slide text size */
+	line-height: 100px; /* Center the text vertically */
+	text-align: center; /* Center the text horizontally */
+	margin: 0 10px; /* Spacing between slides */
+	transition: all 0.3s; /* Smooth transition for scaling */
+	cursor: pointer; /* Change cursor on hover */
+	text-decoration: none; /* Remove underline from <a> tag */
+  }
+  
+  /* Styles for the active slide */
+  .slick-carousel .slick-center a div {
+	color: #fff !important; /* Force the text color for the active slide */
+	background: #3498db !important; /* Force the background color for the active slide */
+	transform: scale(1.05); /* Make the active slide slightly larger */
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for active slide */
+  }
